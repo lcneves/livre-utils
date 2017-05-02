@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+project=${PWD##*/}
+commit_message="$1"
+
+git add . -A
+git commit -m "$commit_message"
+npm version patch
+git push
+npm publish
+
+commit_message="$project: $commit_message"
+cd ..
+git add . -A
+git commit -m "$commit_message"
+git push
+
+cd $project
+
